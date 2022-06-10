@@ -2,9 +2,14 @@
 
 ### A python implementation of Imbens Sensitivity Analysis
 
-## Tutorial
+## Imbens Tutorial
 
-See the tutorial folder for detailed step by step Imbens sensitivity analysis on simulation data and how it compares to semi-parametric methods like [Austen Plot](https://arxiv.org/abs/2003.01747).
+See the Imbens Tutorial folder for detailed step by step Imbens sensitivity analysis on simulation data and how it compares to semi-parametric methods like [Austen Plot](https://arxiv.org/abs/2003.01747).
+
+## Stan Sign Flip Tutorial
+
+See the Stan Sign Flip Tutorial folder for detailed step by step implementation and  analysis of sign flip $\alpha$ and $\delta$ with simulation dataset.
+
 
 ## Contact
 
