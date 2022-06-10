@@ -296,7 +296,7 @@ def contour_2d_plot(result_2d_df,
                     figsize = (10,5), title = "contour plot",
                     smooth = True, kx = 2, 
                     show_covars = False, omit_vars_df = None, 
-                    fmts = ["r.","ro","r1", "r2","r3"],
+                    colors = ["orange","gold","royalblue", "forestgreen"],
                     save_as = None, dpi = 300):
     
     #result_2d_df: should contain column: "alpha", "delta", "R_2_T_par", "R_2_Y_par". 
@@ -341,10 +341,12 @@ def contour_2d_plot(result_2d_df,
         x = result_2d_df["R_2_T_par"].values
         y = result_2d_df["R_2_Y_par"].values
         spl = interpolate.make_interp_spline(x[np.argsort(x)], y[np.argsort(x)], k = kx)
-        x = np.linspace(min(x.min(), np.min(omit_vars_df["R_2_T_par"])), 
-                        max(x.max(), np.max(omit_vars_df["R_2_T_par"])), 500)
+        x = np.linspace(min(0, np.min(omit_vars_df["R_2_T_par"])), 
+                        max(1, np.max(omit_vars_df["R_2_T_par"])), 500)
         y = spl(x)
         ax2.plot(x, y)
+        ax2.set_xlim([0,1])
+        ax2.set_ylim([0,1])
         ax2.set_xlabel(r'$R^2_{T,par}$', fontweight ='bold')
         ax2.set_ylabel(r'$R^2_{Y,par}$', fontweight ='bold')
         
@@ -353,11 +355,16 @@ def contour_2d_plot(result_2d_df,
     if show_covars:
         for covar_i in range(len(omit_vars_df.index)):
             covar = omit_vars_df.index[covar_i]
-            ax2.plot(omit_vars_df.loc[covar]["R_2_T_par"], 
-                     omit_vars_df.loc[covar]["R_2_Y_par"], fmts[covar_i], label=covar, markersize=10)
+            ax2.scatter(omit_vars_df.loc[covar]["R_2_T_par"], 
+                        omit_vars_df.loc[covar]["R_2_Y_par"], 
+                        #fmts[covar_i], 
+                        label=covar, 
+                        c=colors[covar_i])
         ax2.legend()
     
     
+    ax2.set_ylim(-0.01,  1)
+    ax2.set_xlim(-0.01, 1)
     plt.subplots_adjust(wspace=0.4)
     fig.suptitle(title)
     
